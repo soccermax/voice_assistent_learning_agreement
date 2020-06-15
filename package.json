@@ -18,11 +18,10 @@
     "jest": "^26.0.1"
   },
   "scripts": {
-    "tsc": "node -v",
-    "test": "jest",
-    "bundle": "gulp --gulpfile node_modules/jovo-framework/gulpfile.js --cwd ./",
     "start": "jovo run",
-    "launch": "npm start -- --launch"
+    "bundle": "gulp --gulpfile node_modules/jovo-framework/gulpfile.js --cwd ./",
+    "test": "jest",
+    "upgrade-lock": "shx rm -rf package-lock.json node_modules && npm i --package-lock=true"
   },
   "repository": {
     "type": "git",
