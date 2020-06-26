@@ -40,54 +40,7 @@ app.use(
 
 app.setHandler({
   LAUNCH() {
-    // return this.toIntent("WelcomeIntent");
-    return this.toIntent("WeatherAlertIntent");
-
-  },
-
-
-
-  async WeatherAlertIntent() {
-    // Sets timestamp to current date and time
-    let timestamp = new Date();
-    timestamp = timestamp.toISOString();
-
-    // Sets expiryTime 23 hours ahead of the current date and time
-    let expiryTime = new Date();
-    expiryTime.setHours(expiryTime.getHours() + 23);
-    expiryTime = expiryTime.toISOString();
-
-    const proactiveEventObject = {
-      "timestamp": timestamp,
-      "referenceId": "test-0001",
-      "expiryTime": expiryTime,
-      "event": {
-        "name": "AMAZON.WeatherAlert.Activated",
-        "payload": {
-          "weatherAlert": {
-            "source": "localizedattribute:source",
-            "alertType": "TORNADO"
-          }
-        }
-      },
-      "localizedAttributes": [
-        {
-          "locale": "en-US",
-          "source": "English Weather Channel"
-        }
-      ],
-      "relevantAudience": {
-        "type": "Multicast",
-        "payload": {}
-      }
-    };
-
-    const accessToken = await this.$alexaSkill.$proactiveEvent.getAccessToken(
-      'amzn1.application-oa2-client.2f90a17556b34e04ad44d9776d713c7a',
-      'cd733983bf86f0a4e626953f2e2d0f48e2f65c845d7c65aebc007ed4d7426016'
-    );
-
-    const result = await this.$alexaSkill.$proactiveEvent.sendProactiveEvent(proactiveEventObject, accessToken);
+    return this.toIntent("WelcomeIntent");
   },
 
   async WelcomeIntent() {

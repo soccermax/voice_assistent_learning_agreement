@@ -32,9 +32,9 @@
     "debug": "jovo run --inspect 9229",
     "build": "jovo build",
     "bundle": "gulp --gulpfile node_modules/jovo-framework/gulpfile.js --cwd ./",
-    "firebase": "gcloud functions deploy voiceAssistent --runtime nodejs10 --trigger-http --allow-unauthenticated --entry-point handler",
-    "deploy:firebase": "npm run build && npm run firebase --prefix bundle/",
-    "deploy:jovo": "npm run build && jovo deploy",
+    "firebase": "gcloud functions deploy voiceAssistent --region=europe-west3 --runtime nodejs10 --trigger-http --allow-unauthenticated --entry-point handler",
+    "deploy:firebase": "npm run build && npm run bundle && npm run firebase --prefix bundle/",
+    "deploy:frontend": "npm run build && jovo deploy",
     "test": "jest"
   },
   "repository": {

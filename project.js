@@ -22,7 +22,7 @@ module.exports = {
           },
         ],
         endpoint: {
-          uri: "https://webhook.jovo.cloud/d130af5c-773b-47e1-b593-5b7bd675ed2a", // Simply place your Jovo Webhook URL here
+          uri: "https://europe-west3-happystudyplanner.cloudfunctions.net/voiceAssistent", // Simply place your Jovo Webhook URL here
           sslCertificateType: "Wildcard"
         },
       }
