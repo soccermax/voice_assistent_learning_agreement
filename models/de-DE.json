@@ -1,0 +1,91 @@
+{
+  "invocation": "learning agreement",
+  "intents": [
+    {
+      "name": "WelcomeIntent",
+      "phrases": []
+    },
+    {
+      "name": "HelpIntent",
+      "phrases": [
+        "Was kannst du schon alles",
+        "Was kann ich mit dem Skill machen",
+        "Wie funktioniert das hier",
+        "Kannst du mir helfen"
+      ]
+    },
+    {
+      "name": "tellNewLearningAgreements",
+      "phrases": [
+        "Neue Learning Agreements vorlesen",
+        "Neue Learning Agreements",
+        "Unbearbeitete Learning Agreements vorlesen"
+      ]
+    },
+    {
+      "name": "tellChangedLearningAgreements",
+      "phrases": ["Geänderte Learning Agreements vorlesen"]
+    },
+    {
+      "name": "askLearningAgreement",
+      "phrases": ["Learning Agreement {learningAgreementNumber} bearbeiten"],
+      "inputs": [
+        {
+          "name": "learningAgreementNumber",
+          "type": {
+            "alexa": "AMAZON.NUMBER",
+            "dialogflow": "@sys.number"
+          }
+        }
+      ]
+    }
+  ],
+  "alexa": {
+    "interactionModel": {
+      "languageModel": {
+        "intents": [
+          {
+            "name": "AMAZON.CancelIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.HelpIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.StopIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.YesIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.NoIntent",
+            "samples": []
+          }
+        ]
+      }
+    }
+  },
+  "dialogflow": {
+    "intents": [
+      {
+        "name": "Default Fallback Intent",
+        "auto": true,
+        "webhookUsed": true,
+        "fallbackIntent": true
+      },
+      {
+        "name": "Default Welcome Intent",
+        "auto": true,
+        "webhookUsed": true,
+        "events": [
+          {
+            "name": "WELCOME"
+          }
+        ]
+      }
+    ]
+  }
+}

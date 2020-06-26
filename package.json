@@ -2,9 +2,12 @@
   "name": "jovo-sample-voice-app-nodejs",
   "version": "3.0.0",
   "description": "A sample voice app that works with the Jovo Framework",
-  "main": "src/index.js",
+  "main": "index.js",
   "dependencies": {
+    "axios": "^0.19.2",
+    "firebase-admin": "^8.12.1",
     "jovo-db-filedb": "^3.0.14",
+    "jovo-db-firestore": "^3.0.17",
     "jovo-framework": "^3.0.18",
     "jovo-platform-alexa": "^3.0.15",
     "jovo-platform-googleassistant": "^3.0.15",
@@ -15,13 +18,24 @@
     "gulp-install": "^1.1.0",
     "gulp-run-command": "0.0.10",
     "gulp-zip": "^5.0.1",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "eslint": "^5.12.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "prettier": "^2.0.5"
   },
   "scripts": {
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:prettier": "prettier \"**/*.{js,json,md,yml,yaml,html}\" --write --loglevel error",
+    "lint:eslint": "eslint . --fix",
     "start": "jovo run",
+    "debug": "jovo run --inspect 9229",
+    "build": "jovo build",
     "bundle": "gulp --gulpfile node_modules/jovo-framework/gulpfile.js --cwd ./",
-    "test": "jest",
-    "upgrade-lock": "shx rm -rf package-lock.json node_modules && npm i --package-lock=true"
+    "firebase": "gcloud functions deploy voiceAssistent --runtime nodejs10 --trigger-http --allow-unauthenticated --entry-point handler",
+    "deploy:firebase": "npm run build && npm run firebase --prefix bundle/",
+    "deploy:jovo": "npm run build && jovo deploy",
+    "test": "jest"
   },
   "repository": {
     "type": "git",

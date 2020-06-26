@@ -3,3 +3,6 @@ db/
 bundle/
 bundle.zip
 .env
+platforms/
+credentials-firebase.json
+.gcloudignore

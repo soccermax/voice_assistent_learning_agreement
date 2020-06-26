@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const { Alexa } = require('jovo-platform-alexa');
-const { GoogleAssistant } = require('jovo-platform-googleassistant');
+const { Alexa } = require("jovo-platform-alexa");
+const { GoogleAssistant } = require("jovo-platform-googleassistant");
 
 jest.setTimeout(500);
 
@@ -15,7 +15,7 @@ for (const p of [new Alexa(), new GoogleAssistant()]) {
       const launchRequest = await testSuite.requestBuilder.launch();
       const response = await conversation.send(launchRequest);
 
-      expect(response.isAsk("Hello World! What's your name?", 'Please tell me your name.')).toBeTruthy();
+      expect(response.isAsk("Hello World! What's your name?", "Please tell me your name.")).toBeTruthy();
     });
   });
 }

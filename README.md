@@ -17,19 +17,19 @@ $ npm i
 ```
 
 You can run the app with:
+
 ```sh
 $ npm start
 ```
 
 Follow the instructions in the console.
 
-
 ## About Jovo
 
 Jovo is the most popular development framework for voice, including platforms like Alexa, Google Assistant, mobile apps, and Raspberry Pi.
 
--   [Jovo Website](https://jovo.tech/)
--   [Documentation](https://jovo.tech/docs/)
--   [Marketplace](https://www.jovo.tech/marketplace/)
--   [Twitter](https://twitter.com/jovotech/)
--   [Forum](https://community.jovo.tech/)
+- [Jovo Website](https://jovo.tech/)
+- [Documentation](https://jovo.tech/docs/)
+- [Marketplace](https://www.jovo.tech/marketplace/)
+- [Twitter](https://twitter.com/jovotech/)
+- [Forum](https://community.jovo.tech/)

@@ -1,0 +1,19 @@
+---
+root: true
+#  https://eslint.org/docs/rules/
+env:
+  node: true
+  es6: true
+parserOptions:
+  ecmaVersion: 10
+extends:
+  - "eslint:recommended"
+  - prettier
+rules:
+  no-unused-vars: [error]
+  no-restricted-modules: [error, child_process, fs] # security
+  no-eval: [error] # security
+  no-implied-eval: [error] # security
+  no-console: [warn] # ops
+  strict: [error]
+  curly: [error]
