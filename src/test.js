@@ -1,7 +1,7 @@
 "use strict";
 
 const firestore = require("./firestore");
-const { filterLearningAgreementForNewOnces, filterLearningAgreementForChangedOnces } = require("./helper");
+const { filterLearningAgreementForChangedOnces } = require("./helper");
 
 (async () => {
   const tmp = await firestore.getLearningAgreementsForUserWithEmail("max.grunfelder@gmail.com");

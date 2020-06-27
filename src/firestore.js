@@ -4,11 +4,11 @@ const admin = require("firebase-admin");
 const serviceAccount = require("./credentials-firebase.json");
 
 const collections = {
-    LEARNING_AGREEMENT: "learningAgreement",
-    USER: "user",
-    UNIVERSITY: "university",
-    COURSE: "course"
-}
+  LEARNING_AGREEMENT: "learningAgreement",
+  USER: "user",
+  UNIVERSITY: "university",
+  COURSE: "course",
+};
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -75,13 +75,16 @@ const getUniversityById = async (id) => {
   return _getDocumentById(collections.UNIVERSITY, id);
 };
 
-const setLearningAgreementStatus = async(id, status) => {
-    try {
-       await db.collection(collections.LEARNING_AGREEMENT).doc(id).update({approved: status, lastEvaluatedOn: admin.firestore.FieldValue.serverTimestamp()});
-    } catch(err) {
-        console.error(err);
-    }
-}
+const setLearningAgreementStatus = async (id, status) => {
+  try {
+    await db
+      .collection(collections.LEARNING_AGREEMENT)
+      .doc(id)
+      .update({ approved: status, lastEvaluatedOn: admin.firestore.FieldValue.serverTimestamp() });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 const _getDocumentById = async (collection, id) => {
   try {
@@ -98,5 +101,5 @@ const _getDocumentById = async (collection, id) => {
 
 module.exports = {
   getLearningAgreementsForUserWithEmail,
-  setLearningAgreementStatus
+  setLearningAgreementStatus,
 };

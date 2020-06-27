@@ -11,26 +11,25 @@ const { Firestore } = require("jovo-db-firestore");
 const axios = require("axios");
 
 const { getLearningAgreementsForUserWithEmail, setLearningAgreementStatus } = require("./firestore");
-const { filterLearningAgreementForNewOnces, filterLearningAgreementForChangedOnces, convertLearningAgreementArrayToObject } = require("./helper");
+const {
+  filterLearningAgreementForNewOnces,
+  filterLearningAgreementForChangedOnces,
+  convertLearningAgreementArrayToObject,
+} = require("./helper");
 
 const askedFor = {
   NEW: "new",
-  CHANGED: "changed"
-}
+  CHANGED: "changed",
+};
 
 const gender = {
   MALE: "male",
-  FEMALE: "FEMALE"
-}
+  FEMALE: "FEMALE",
+};
 
 const app = new App();
 
-app.use(
-  new Alexa(),
-  new GoogleAssistant(),
-  new JovoDebugger(),
-  new Firestore()
-);
+app.use(new Alexa(), new GoogleAssistant(), new JovoDebugger(), new Firestore());
 
 // ------------------------------------------------------------------
 // APP LOGIC
@@ -55,9 +54,9 @@ app.setHandler({
       // const learningAgreements = await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email);
       // this.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements)
       const that = this;
-      getLearningAgreementsForUserWithEmail(this.$session.$data.user.email).then(learningAgreements => {
-        that.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements)
-      })
+      getLearningAgreementsForUserWithEmail(this.$session.$data.user.email).then((learningAgreements) => {
+        that.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements);
+      });
 
       this.$speech
         .addText(`Willkommen zurück ${this.$session.$data.user.givenName}. Wie kann ich dir helfen?`)
@@ -97,7 +96,7 @@ app.setHandler({
     Unhandled() {
       this.$speech
         .addText("Das habe ich leider nicht richtig verstanden oder die Funktion wird noch nicht untersützt.")
-        .addText("Falls du nicht weiter weißt, kannst du einfach: Kannst du mir helfen - sagen")
+        .addText("Falls du nicht weiter weißt, kannst du einfach: Kannst du mir helfen - sagen");
       this.ask(this.$speech);
     },
   },
@@ -205,12 +204,14 @@ app.setHandler({
     if (!learningAgreementNumber || learningAgreementNumber === "?") {
       this.$speech
         .addText("Das habe ich leider nicht richtig verstanden oder die Funktion wird noch nicht unterstützt.")
-        .addText("Falls du nicht weiter weißt, kannst du einfach: Kannst du mir helfen - sagen")
+        .addText("Falls du nicht weiter weißt, kannst du einfach: Kannst du mir helfen - sagen");
       this.ask(this.$speech);
       return;
     }
     if (!learningAgreement) {
-      this.followUpState("wrongLearningAgreementChosen").ask(`Das Learning Agreement ${learningAgreementNumber} existiert nicht. Soll ich dir die verfügbaren Learning Agreements nochmal vorlesen?`);
+      this.followUpState("wrongLearningAgreementChosen").ask(
+        `Das Learning Agreement ${learningAgreementNumber} existiert nicht. Soll ich dir die verfügbaren Learning Agreements nochmal vorlesen?`
+      );
       return;
     }
     const studentGender = learningAgreement.student.gender;
@@ -223,7 +224,9 @@ app.setHandler({
         `${learningAgreement.student.preName} möchte die ${learningAgreement.targetUniversity.name}, ${learningAgreement.targetUniversity.country} besuchen.`
       )
       .addText(
-        `Das ausgefüllte Learning Agreement von ${studentGender === gender.MALE ? "ihm" : "ihr"} wurde mit einem Score von ${learningAgreement.score}% bewertet.`
+        `Das ausgefüllte Learning Agreement von ${
+          studentGender === gender.MALE ? "ihm" : "ihr"
+        } wurde mit einem Score von ${learningAgreement.score}% bewertet.`
       )
       .addText(`Soll ich dir ${studentGender === gender.MALE ? "seine" : "ihre"} ausgewählten Kurse vorlesen?`);
     const reprompt = "Sage bitte ja oder nein.";
@@ -247,7 +250,6 @@ app.setHandler({
       this.toStatelessIntent("askLearningAgreement");
     },
 
-
     Unhandled() {
       const speech = "Diese Frage lässt sich nur mit ja oder nein beantworten.";
       const reprompt = "Also nochmal nur für dich: Ja oder Nein?";
@@ -260,9 +262,14 @@ app.setHandler({
       const learningAgreement = this.$session.$data.learningAgreements[this.$session.$data.learningAgreementNumber];
       const studentGender = learningAgreement.student.gender;
       await setLearningAgreementStatus(learningAgreement.id, true);
-      this.$speech.addText(`Alles klar, ich habe das Learning Agreement genehmigt und ${learningAgreement.student.preName} benachrichtigt, dass ${studentGender === gender.MALE ? "er" : "sie"} schonmal die Koffer packen kann.`)
+      this.$speech
+        .addText(
+          `Alles klar, ich habe das Learning Agreement genehmigt und ${
+            learningAgreement.student.preName
+          } benachrichtigt, dass ${studentGender === gender.MALE ? "er" : "sie"} schonmal die Koffer packen kann.`
+        )
         .addText("Möchtest du noch weitere Learning Agreements bearbeiten?");
-      const reprompt = "Möchtest du noch weitere Learning Agreements bearbeiten?"
+      const reprompt = "Möchtest du noch weitere Learning Agreements bearbeiten?";
       this.followUpState("moreLearningAgreements").ask(this.$speech, reprompt);
     },
 
@@ -295,7 +302,11 @@ app.setHandler({
           `Der Kurs ${course.courseHomeUniversity.name} mit ${course.courseHomeUniversity.creditPoints} Anrechnungspunkten soll für Kurs ${course.courseTargetUniversity.name} mit ${course.courseTargetUniversity.creditPoints} Anrechnungspunkten angerechnet werden.`
         );
       });
-      this.$speech.addText(`Das war es auch schon. Was ${studentGender === gender.MALE ? "ein fleißiger Student" : "eine fleißige Studentin"}.`);
+      this.$speech.addText(
+        `Das war es auch schon. Was ${
+          studentGender === gender.MALE ? "ein fleißiger Student" : "eine fleißige Studentin"
+        }.`
+      );
       this.$speech.addText("Sollen wir es dann einfach genehmigen ja oder nein?");
       let reprompt = "Also nochmal nur für dich: Ja oder Nein?";
       this.followUpState("learningAgreementValidate").ask(this.$speech, reprompt);
@@ -319,9 +330,13 @@ app.setHandler({
       const learningAgreement = this.$session.$data.learningAgreements[this.$session.$data.learningAgreementNumber];
       const studentGender = learningAgreement.student.gender;
       this.$speech
-        .addText(`Alles klar, dann hat der ${studentGender === gender.MALE ? "Student" : "Studentin"} wohl pech und muss Zuhause bleiben!`)
+        .addText(
+          `Alles klar, dann hat der ${
+            studentGender === gender.MALE ? "Student" : "Studentin"
+          } wohl pech und muss Zuhause bleiben!`
+        )
         .addText("Möchtest du noch weitere Learning Agreements bearbeiten?");
-      const reprompt = "Möchtest du noch weitere Learning Agreements bearbeiten?"
+      const reprompt = "Möchtest du noch weitere Learning Agreements bearbeiten?";
       this.followUpState("moreLearningAgreements").ask(this.$speech, reprompt);
     },
 
@@ -343,20 +358,24 @@ app.setHandler({
     YesIntent() {
       this.$speech
         .addText("Da ist aber jemand fleißig heute.")
-        .addText("Für neue Learning Agreements sage: Neue Learning Agreements vorlesen und für geänderte: Geänderte Learning Agreements vorlesen.");
-      const reprompt = "Mögliche Optionen sind: Neue Learning Agreements vorlesen oder Geänderte Learning Agreements vorlesen?"
+        .addText(
+          "Für neue Learning Agreements sage: Neue Learning Agreements vorlesen und für geänderte: Geänderte Learning Agreements vorlesen."
+        );
+      const reprompt =
+        "Mögliche Optionen sind: Neue Learning Agreements vorlesen oder Geänderte Learning Agreements vorlesen?";
       this.ask(this.$speech, reprompt);
     },
 
     NoIntent() {
-      const speech =
-        "Alles klar. Dann wünsche ich dir noch einen schönen Tag und bis bald.";
+      const speech = "Alles klar. Dann wünsche ich dir noch einen schönen Tag und bis bald.";
       this.tell(speech);
     },
 
     async tellNewLearningAgreements() {
       this.$session.$data.learningAgreements = {};
-      const newLearningAgreements = convertLearningAgreementArrayToObject(await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email));
+      const newLearningAgreements = convertLearningAgreementArrayToObject(
+        await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email)
+      );
       const filteredLearningAgreements = filterLearningAgreementForNewOnces(newLearningAgreements);
       this.$session.$data.learningAgreements = filteredLearningAgreements;
 
@@ -366,7 +385,6 @@ app.setHandler({
       }
 
       this.$session.$data.askedFor = askedFor.NEW;
-
 
       this.$speech.addText("Folgende unbearbeitete Learning Agreements habe ich gefunden:");
       Object.keys(filteredLearningAgreements).forEach((learningAgreement) => {
@@ -384,7 +402,9 @@ app.setHandler({
 
     async tellChangedLearningAgreements() {
       this.$session.$data.learningAgreements = {};
-      const newLearningAgreements = convertLearningAgreementArrayToObject(await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email));
+      const newLearningAgreements = convertLearningAgreementArrayToObject(
+        await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email)
+      );
       const filteredLearningAgreements = filterLearningAgreementForChangedOnces(newLearningAgreements);
       this.$session.$data.learningAgreements = filteredLearningAgreements;
 
@@ -410,7 +430,7 @@ app.setHandler({
     },
 
     askLearningAgreement() {
-      return this.toStatelessIntent("askLearningAgreement")
+      return this.toStatelessIntent("askLearningAgreement");
     },
 
     //TODO: right speech
@@ -420,9 +440,7 @@ app.setHandler({
       let reprompt = "Also nochmal nur für dich: Ja oder Nein?";
       this.ask(speech, reprompt);
     },
-  }
-
-
+  },
 });
 
 module.exports = { app };
