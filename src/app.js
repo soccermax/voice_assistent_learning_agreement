@@ -52,13 +52,17 @@ app.setHandler({
       };
 
       this.$session.$data.learningAgreements = {};
-      const learningAgreements = await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email);
-      this.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements)
+      // const learningAgreements = await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email);
+      // this.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements)
+      const that = this;
+      getLearningAgreementsForUserWithEmail(this.$session.$data.user.email).then(learningAgreements => {
+        that.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements)
+      })
 
       this.$speech
         .addText(`Willkommen zurück ${this.$session.$data.user.givenName}. Wie kann ich dir helfen?`)
         .addText(
-          "Solltest du dich nicht mehr erinnern was ich schon alles kann, sage einfach: Was kannst du schon alles? Ach ja. Hast du bisschen was zum ziehen oder so?"
+          "Solltest du dich nicht mehr erinnern was ich schon alles kann, sage einfach: Was kannst du schon alles?"
         );
       this.ask(this.$speech);
     } else {
