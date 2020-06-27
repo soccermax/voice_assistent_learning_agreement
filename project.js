@@ -31,5 +31,5 @@ module.exports = {
   googleAction: {
     nlu: "dialogflow",
   },
-  endpoint: "${JOVO_WEBHOOK_URL}",
+  endpoint: "https://europe-west3-happystudyplanner.cloudfunctions.net/voiceAssistent",
 };
