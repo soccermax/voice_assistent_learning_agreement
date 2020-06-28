@@ -36,6 +36,7 @@
     "deploy:firebase": "gcloud functions deploy voiceAssistent --project=happystudyplanner --region=europe-west3 --runtime nodejs10 --trigger-http --allow-unauthenticated --entry-point handler",
     "deploy:firebase:all": "npm run build && npm run bundle && npm run deploy:firebase --prefix bundle/",
     "deploy:frontend": "npm run build && jovo deploy",
+    "deploy:all": "npm run deploy:frontend && npm run bundle && npm run deploy:firebase --prefix bundle/",
     "test": "jest"
   },
   "repository": {
