@@ -19,18 +19,17 @@ const filterLearningAgreementForChangedOnces = (learningAgreements) => {
   const modifiedLearningAgreements = {};
   for (const key in learningAgreements) {
     const learningAgreement = learningAgreements[key];
-    const lastEvaluatedTimeStamp = new admin.firestore.Timestamp(
+    const lastEvaluatedTimeStamp = learningAgreement.lastEvaluatedOn === null ? 0 : new admin.firestore.Timestamp(
       learningAgreement.lastEvaluatedOn._seconds,
       learningAgreement.lastEvaluatedOn._nanoseconds
-    );
-    const lastModifiedTimeStamp = new admin.firestore.Timestamp(
+    ).toMillis();
+    const lastModifiedTimeStamp = learningAgreement.lastModifiedOn === null ? 0 : new admin.firestore.Timestamp(
       learningAgreement.lastModifiedOn._seconds,
       learningAgreement.lastModifiedOn._nanoseconds
-    );
+    ).toMillis();
     if (
       !learningAgreement.approved &&
-      !lastEvaluatedTimeStamp.isEqual(admin.firestore.Timestamp.fromDate(NOT_EVALUATED_DATE)) &&
-      lastModifiedTimeStamp.toMillis() > lastEvaluatedTimeStamp.toMillis()
+      lastModifiedTimeStamp > lastEvaluatedTimeStamp
     ) {
       modifiedLearningAgreements[key] = learningAgreement;
     }

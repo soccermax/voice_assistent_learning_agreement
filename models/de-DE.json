@@ -38,6 +38,24 @@
           }
         }
       ]
+    },
+    {
+      "name": "rejectLearningAgreement",
+      "phrases": ["Das {rejectComment}"],
+      "inputs":[
+        {
+          "name": "rejectComment",
+          "type": {
+            "alexa": "AMAZON.SearchQuery",
+            "dialogflow": "@sys.number"
+          }
+        }
+      ],
+      "examples": [
+        "Das Learning Agreement hat nicht genügend Credit Points",
+        "Ich mag diesen Studenten einfach nicht",
+        "Grundlose ablehnen weil ich keine Lust habe"
+      ]
     }
   ],
   "alexa": {

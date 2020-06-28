@@ -68,7 +68,7 @@ app.setHandler({
         )
         .addBreak("300ms")
         .addText("Neue oder geänderte Learning Agreements vorlesen.")
-        .addText("Learning Agreements können genehmigt oder mit Kommentar abgelehnt werden.")
+        .addText("Learning Agreements können genehmigt oder abgelehnt werden.")
         .addText(
           "Damit ich Learning Agreements abzurufen kann, musst du dich zuerst in der Alexa App auf deinem Smartphone anmelden. Bis gleich."
         );
@@ -273,7 +273,7 @@ app.setHandler({
       const learningAgreement = this.$session.$data.learningAgreements[this.$session.$data.learningAgreementNumber];
       await setLearningAgreementStatus(learningAgreement.id, false);
       const speech = "Bist du dir sicher? Das wäre schon fies.";
-      const reprompt = "Also nochmal nur für dich: Ja oder Nein?";
+      const reprompt = "Also nochmal : Ja oder Nein?";
       this.followUpState("confirmReject").ask(speech, reprompt);
     },
 
