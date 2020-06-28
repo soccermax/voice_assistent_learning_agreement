@@ -52,7 +52,7 @@ app.setHandler({
 
       this.$session.$data.learningAgreements = {};
       const learningAgreements = await getLearningAgreementsForUserWithEmail(this.$session.$data.user.email);
-      this.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements)
+      this.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements);
 
       this.$speech
         .addText(`Willkommen zurück ${this.$session.$data.user.givenName}. Wie kann ich dir helfen?`)
@@ -148,7 +148,9 @@ app.setHandler({
       );
     });
     this.$speech.addText(
-      "Um ein Learning Agreement auszuwählen, sage beispielsweise Learning Agreement zwei bearbeiten."
+      `Um ein Learning Agreement auszuwählen, sage beispielsweise Learning Agreement ${
+        Object.keys(learningAgreements)[0]
+      } bearbeiten.`
     );
     this.ask(this.$speech);
   },
@@ -221,7 +223,7 @@ app.setHandler({
       )
       .addText(
         `Das ausgefüllte Learning Agreement von ${
-        studentGender === gender.MALE ? "ihm" : "ihr"
+          studentGender === gender.MALE ? "ihm" : "ihr"
         } wurde mit einem Score von ${learningAgreement.score}% bewertet.`
       )
       .addText(`Soll ich dir ${studentGender === gender.MALE ? "seine" : "ihre"} ausgewählten Kurse vorlesen?`);
@@ -261,7 +263,7 @@ app.setHandler({
       this.$speech
         .addText(
           `Alles klar, ich habe das Learning Agreement genehmigt und ${
-          learningAgreement.student.preName
+            learningAgreement.student.preName
           } benachrichtigt, dass ${studentGender === gender.MALE ? "er" : "sie"} schonmal die Koffer packen kann.`
         )
         .addText("Möchtest du noch weitere Learning Agreements bearbeiten?");
@@ -300,7 +302,7 @@ app.setHandler({
       });
       this.$speech.addText(
         `Das war es auch schon. Was ${
-        studentGender === gender.MALE ? "ein fleißiger Student" : "eine fleißige Studentin"
+          studentGender === gender.MALE ? "ein fleißiger Student" : "eine fleißige Studentin"
         }.`
       );
       this.$speech.addText("Sollen wir es dann einfach genehmigen ja oder nein?");
@@ -328,7 +330,7 @@ app.setHandler({
       this.$speech
         .addText(
           `Alles klar, dann hat der ${
-          studentGender === gender.MALE ? "Student" : "Studentin"
+            studentGender === gender.MALE ? "Student" : "Studentin"
           } wohl pech und muss Zuhause bleiben!`
         )
         .addText("Möchtest du noch weitere Learning Agreements bearbeiten?");
@@ -390,9 +392,10 @@ app.setHandler({
         );
       });
       this.$speech.addText(
-        "Um ein Learning Agreement auszuwählen, sage beispielsweise Learning Agreement eins bearbeiten."
+        `Um ein Learning Agreement auszuwählen, sage beispielsweise Learning Agreement ${
+          Object.keys(filteredLearningAgreements)[0]
+        } bearbeiten.`
       );
-
       this.ask(this.$speech);
     },
 

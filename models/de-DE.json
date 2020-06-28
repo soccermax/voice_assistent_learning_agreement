@@ -42,7 +42,7 @@
     {
       "name": "rejectLearningAgreement",
       "phrases": ["Das {rejectComment}"],
-      "inputs":[
+      "inputs": [
         {
           "name": "rejectComment",
           "type": {
