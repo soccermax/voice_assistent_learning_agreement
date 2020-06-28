@@ -59,7 +59,7 @@ app.setHandler({
         .addText(
           "Solltest du dich nicht mehr erinnern was ich schon alles kann, sage einfach: Was kannst du schon alles?"
         );
-      this.ask(this.$speech);
+      this.followUpState("afterWelcomeIntent").ask(this.$speech);
     } else {
       this.$alexaSkill.showAccountLinkingCard();
       this.$speech
@@ -91,8 +91,8 @@ app.setHandler({
 
     Unhandled() {
       this.$speech
-        .addText("Das habe ich leider nicht richtig verstanden oder die Funktion wird noch nicht untersützt.")
-        .addText("Falls du nicht weiter weißt, kannst du einfach: Kannst du mir helfen - sagen");
+        .addText("Das habe ich leider nicht richtig verstanden oder die Funktion wird noch nicht unterstützt.")
+        .addText("Falls du nicht weiter weißt, sage einfach: Kannst du mir helfen?");
       this.ask(this.$speech);
     },
   },
@@ -148,7 +148,7 @@ app.setHandler({
       );
     });
     this.$speech.addText(
-      "Um ein Learning Agreement auszuwählen, sage beispielsweise Learning Agreement eins bearbeiten."
+      "Um ein Learning Agreement auszuwählen, sage beispielsweise Learning Agreement zwei bearbeiten."
     );
     this.ask(this.$speech);
   },
@@ -221,7 +221,7 @@ app.setHandler({
       )
       .addText(
         `Das ausgefüllte Learning Agreement von ${
-          studentGender === gender.MALE ? "ihm" : "ihr"
+        studentGender === gender.MALE ? "ihm" : "ihr"
         } wurde mit einem Score von ${learningAgreement.score}% bewertet.`
       )
       .addText(`Soll ich dir ${studentGender === gender.MALE ? "seine" : "ihre"} ausgewählten Kurse vorlesen?`);
@@ -261,7 +261,7 @@ app.setHandler({
       this.$speech
         .addText(
           `Alles klar, ich habe das Learning Agreement genehmigt und ${
-            learningAgreement.student.preName
+          learningAgreement.student.preName
           } benachrichtigt, dass ${studentGender === gender.MALE ? "er" : "sie"} schonmal die Koffer packen kann.`
         )
         .addText("Möchtest du noch weitere Learning Agreements bearbeiten?");
@@ -300,7 +300,7 @@ app.setHandler({
       });
       this.$speech.addText(
         `Das war es auch schon. Was ${
-          studentGender === gender.MALE ? "ein fleißiger Student" : "eine fleißige Studentin"
+        studentGender === gender.MALE ? "ein fleißiger Student" : "eine fleißige Studentin"
         }.`
       );
       this.$speech.addText("Sollen wir es dann einfach genehmigen ja oder nein?");
@@ -328,7 +328,7 @@ app.setHandler({
       this.$speech
         .addText(
           `Alles klar, dann hat der ${
-            studentGender === gender.MALE ? "Student" : "Studentin"
+          studentGender === gender.MALE ? "Student" : "Studentin"
           } wohl pech und muss Zuhause bleiben!`
         )
         .addText("Möchtest du noch weitere Learning Agreements bearbeiten?");
