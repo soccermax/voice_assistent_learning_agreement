@@ -55,7 +55,7 @@ app.setHandler({
       this.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements);
 
       this.$speech
-        .addText(`Willkommen zurück ${this.$session.$data.user.givenName}. Wie kann ich dir helfen?`)
+        .addText(`Willkommen zurück ${this.$session.$data.user.givenName === "Maximilian" ? "Max" : this.$session.$data.user.givenName}. Wie kann ich dir helfen?`)
         .addText(
           "Solltest du dich nicht mehr erinnern was ich schon alles kann, sage einfach: Was kannst du schon alles?"
         );
@@ -106,14 +106,14 @@ app.setHandler({
         .addText(
           "Neue oder geänderte Learning Agreements vorlesen. Sage dazu einfach: Neue Learning Agreements vorlesen oder geänderte Learning Agreements vorlesen."
         )
-        .addText("Learning Agreements können genehmigt oder mit Kommentar abgelehnt werden.");
+        .addText("Learning Agreements können genehmigt oder abgelehnt werden.");
       this.ask(this.$speech);
     } else {
       this.$speech
         .addText("Folgende Dinge habe ich schon gelernt:")
         .addBreak("300ms")
         .addText("Neue oder geänderte Learning Agreements vorlesen.")
-        .addText("Learning Agreements können genehmigt oder mit Kommentar abgelehnt werden.")
+        .addText("Learning Agreements können genehmigt oder abgelehnt werden.")
         .addText(
           "Damit ich Learning Agreements abrufen kann, musst du dich zuerst in der Alexa App auf deinem Smartphone anmelden. Bis gleich."
         );
