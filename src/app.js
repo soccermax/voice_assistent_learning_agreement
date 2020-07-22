@@ -55,7 +55,7 @@ app.setHandler({
       this.$session.$data.learningAgreements = convertLearningAgreementArrayToObject(learningAgreements);
 
       this.$speech
-        .addText(`Willkommen zurück ${this.$session.$data.user.givenName === "Maximilian" ? "Max" : this.$session.$data.user.givenName}. Wie kann ich dir helfen?`)
+        .addText(`Willkommen zurück ${this.$session.$data.user.givenName === "Maximilian" ? "Max" : this.$session.$data.user.givenName}, schön dich wieder zu sehen. Wie kann ich dir helfen?`)
         .addText(
           "Solltest du dich nicht mehr erinnern was ich schon alles kann, sage einfach: Was kannst du schon alles?"
         );
@@ -329,8 +329,8 @@ app.setHandler({
       const studentGender = learningAgreement.student.gender;
       this.$speech
         .addText(
-          `Alles klar, dann hat der ${
-            studentGender === gender.MALE ? "Student" : "Studentin"
+          `Alles klar, dann hat ${
+            studentGender === gender.MALE ? "der Student" : "die Studentin"
           } wohl pech und muss Zuhause bleiben!`
         )
         .addText("Möchtest du noch weitere Learning Agreements bearbeiten?");
